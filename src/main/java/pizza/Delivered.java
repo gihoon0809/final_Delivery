@@ -1,28 +1,10 @@
-package newpizza;
+package pizza;
 
-import javax.persistence.*;
-import org.springframework.beans.BeanUtils;
-import java.util.List;
+public class Delivered extends AbstractEvent {
 
-@Entity
-@Table(name="Delivery_table")
-public class Delivery {
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String deliveryStatus;
     private Long orderId;
-
-    @PostPersist
-    public void onPostPersist(){
-        Delivered delivered = new Delivered();
-        BeanUtils.copyProperties(this, delivered);
-        delivered.publishAfterCommit();
-
-
-    }
-
 
     public Long getId() {
         return id;
@@ -45,8 +27,4 @@ public class Delivery {
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
-
-
-
-
 }
